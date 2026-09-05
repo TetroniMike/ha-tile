@@ -54,6 +54,9 @@ class TileDevice:
     longitude: float | None = None
     last_timestamp: datetime | None = None
     battery_status: str | None = None
+    battery_level: str | None = None
+    battery_state: str | None = None
+    battery_replaced_at: str | None = None
 
     @classmethod
     def from_api_response(cls, tile_uuid: str, data: dict[str, Any]) -> "TileDevice":
@@ -80,6 +83,9 @@ class TileDevice:
             longitude=last_state.get("longitude"),
             last_timestamp=last_ts,
             battery_status=data.get("battery_status"),
+            battery_level=data.get("battery_level"),
+            battery_state=data.get("battery_state"),
+            battery_replaced_at=data.get("battery_replaced_at"),
         )
 
     @property
@@ -238,6 +244,9 @@ async def test_get_tiles(tester: TileApiTester) -> list[TileDevice]:
                 print(f"   Location: Unknown")
             print(f"   Last seen: {tile.last_timestamp or 'Unknown'}")
             print(f"   Battery: {tile.battery_status or 'N/A'}")
+            print(f"   Battery Level: {tile.battery_level or 'N/A'}")
+            print(f"   Battery State: {tile.battery_state or 'N/A'}")
+            print(f"   Battery Replaced At: {tile.battery_replaced_at or 'N/A'}")
             print(f"   Auth key: {'Yes' if tile.auth_key else 'No (phone)'}")
             print()
     

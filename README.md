@@ -129,6 +129,9 @@ This integration includes a custom Lovelace card for Tile devices.
 - `source_type` - Location source
 - `tile_id` - Tile UUID
 - `battery_status` - Battery level
+- `battery_level` - Battery level (alternate)
+- `battery_state` - Battery state
+- `battery_replaced_at` - Date battery replaced (for compatible devices)
 - `ring_state` - Current ring state
 - `voip_state` - VoIP state
 - `firmware_version` / `hardware_version`
