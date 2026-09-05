@@ -25,6 +25,7 @@ from .const import (
     ATTR_TILE_UUID,
     ATTR_TILE_TYPE,
     ATTR_LAST_TILE_STATE,
+    ATTR_BATTERY_STATUS,
     ATTRIBUTION,
 )
 from .tile_api import TileDevice
@@ -163,7 +164,10 @@ class TileDeviceTracker(CoordinatorEntity, TrackerEntity):
             
             if self.tile.ring_state is not None:
                 attrs[ATTR_RING_STATE] = self.tile.ring_state
-            
+
+            if self.tile.battery_status is not None:
+                attrs[ATTR_BATTERY_STATUS] = self.tile.battery_status
+
             # Additional useful attributes
             attrs[ATTR_TILE_UUID] = self.tile.tile_uuid
             attrs[ATTR_TILE_TYPE] = self.tile.tile_type
