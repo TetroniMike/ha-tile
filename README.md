@@ -209,6 +209,7 @@ To improve performance and reduce BLE scan overhead:
 - **Jeff Hamm** ([@jeff-hamm](https://github.com/jeff-hamm)) - Author
 - **Claude** (Anthropic) - Development assistance
 - **lesleyxyz** - [node-tile](https://github.com/lesleyxyz/node-tile) - BLE protocol reference (MIT License)
+- **TetroniMike** - ([@TetroniMike](https://github.com/TetroniMike)) Added battery_level, battery_state, battery_replaced_at
 
 ## License
 

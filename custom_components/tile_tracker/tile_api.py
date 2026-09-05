@@ -50,6 +50,9 @@ class TileDevice:
     speed: float | None = None
     ring_state: str | None = None
     battery_status: str | None = None
+    battery_level: float | None = None
+    battery_state: int | None = None
+    battery_replaced_at: datetime | None = None
     latitude: float | None = None
     longitude: float | None = None
     altitude: float | None = None
