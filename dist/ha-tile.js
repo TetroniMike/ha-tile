@@ -1,11 +1,11 @@
 /**
  * Tile Tracker Card v1.0.0
- * 
+ *
  * A Lovelace card for displaying Tile device trackers with ring control.
- * 
+ *
  * Copyright (c) 2024-2026 Jeff Hamm <jeff.hamm@gmail.com>
  * Developed with assistance from Claude (Anthropic)
- * 
+ *
  * SPDX-License-Identifier: MIT
  */
 
@@ -58,6 +58,9 @@ const AVAILABLE_ATTRIBUTES = [
   { value: "source_type", label: "Source Type" },
   { value: "tile_id", label: "Tile ID" },
   { value: "battery_status", label: "Battery Status" },
+  { value: "battery_level", label: "Battery Level" },
+  { value: "battery_state", label: "Battery State" },
+  { value: "battery_replaced_at", label: "Battery Replaced At" },
   { value: "ring_state", label: "Ring State" },
   { value: "voip_state", label: "VoIP State" },
   { value: "firmware_version", label: "Firmware Version" },
@@ -157,7 +160,8 @@ class TileTrackerCard extends HTMLElement {
     const ringState = stateObj.attributes.ring_state || "silent";
     const batteryLevel = this._getBatteryLevel(stateObj);
     const batteryStatus = stateObj.attributes.battery_status || "unknown";
-    const batteryInfo = this._getBatteryInfo(batteryLevel, batteryStatus);
+    const batteryLevel2 = stateObj.attributes.battery_level || 0;
+    const batteryInfo = this._getBatteryInfo(batteryLevel2, batteryStatus);
     const ringColor = RING_STATE_COLORS[ringState] || RING_STATE_COLORS.unknown;
     const ringIcon = ringState === "ringing" ? "mdi:bell-ring" : "mdi:bell";
 
@@ -177,7 +181,8 @@ class TileTrackerCard extends HTMLElement {
             </div>
             <div class="battery" title="${batteryInfo.tooltip}">
               <ha-icon icon="${batteryInfo.icon}" style="color: ${batteryInfo.color}"></ha-icon>
-              ${batteryLevel !== null ? `<span class="battery-text">${batteryLevel}%</span>` : ""}
+              <!-- ${batteryLevel !== null ? `<span class="battery-text">${batteryLevel}%</span>` : ""} -->
+              ${batteryLevel2 !== null ? `<span class="battery-text">${batteryLevel2}%</span>` : ""}
             </div>
           </div>
         </div>
@@ -486,7 +491,7 @@ class TileTrackerCardEditor extends HTMLElement {
 
     const attrCheckboxes = AVAILABLE_ATTRIBUTES.map((attr) => `
       <label class="checkbox-item">
-        <input type="checkbox" data-attr="${attr.value}" 
+        <input type="checkbox" data-attr="${attr.value}"
           ${(this._config.show_attributes || []).includes(attr.value) ? "checked" : ""}>
         ${attr.label}
       </label>

@@ -1,9 +1,9 @@
 /**
  * Tile Tracker Card - Lovelace card for Tile device trackers
- * 
+ *
  * Copyright (c) 2024-2026 Jeff Hamm <jeff.hamm@gmail.com>
  * Developed with assistance from Claude (Anthropic)
- * 
+ *
  * SPDX-License-Identifier: MIT
  */
 
@@ -191,10 +191,14 @@ export class TileTrackerCard extends LitElement implements LovelaceCard {
     const ringState = stateObj.attributes.ring_state || "silent";
     const batteryLevel = this._getBatteryLevel(stateObj);
     const batteryStatus = stateObj.attributes.battery_status || "unknown";
+    const batteryLevel2 = stateObj.attributes.battery_level || 0;
+    const batteryState = stateObj.attributes.battery_state || "unknown";
+    const batteryReplacedAt = stateObj.attributes.battery_replaced_at || "unknown";
 
+	//${this._renderHeader(name, product, ringState, batteryLevel, batteryStatus)}
     return html`
       <ha-card>
-        ${this._renderHeader(name, product, ringState, batteryLevel, batteryStatus)}
+        ${this._renderHeader(name, product, ringState, batteryLevel2, batteryStatus)}
         ${this._config.show_map ? this._renderMap(stateObj) : nothing}
         ${this._renderAttributes(stateObj)}
       </ha-card>
@@ -278,7 +282,7 @@ export class TileTrackerCard extends LitElement implements LovelaceCard {
     if (!attrs.length) return nothing;
 
     // Filter to attributes that exist
-    const displayAttrs = attrs.filter((attr) => 
+    const displayAttrs = attrs.filter((attr) =>
       stateObj.attributes[attr] !== undefined
     );
 
